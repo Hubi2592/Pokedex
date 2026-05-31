@@ -13,16 +13,19 @@
 <body>
 <header>
     <div class="logo">
-        KC
+        <h1>POKEDEX</h1>
     </div>
     <div class="searchBar">
         <input type="text" placeholder="Search Pokémon...">
     </div>
 </header>
-
+<section class="mainContent">
     <h1>POKEDEX</h1>
     <p>Welcome to the POKEDX!</p>
-    <div id="pokemonContainer"></div>
+    <div class="pokemonContainer" id="pokemonContainer"></div>
+
+    <button id="loadMoreBtn" onclick="loadNextPokemonBatch()">Load More</button>
+</section>
 <footer>
     <p>&copy; 2024 POKEDEX. All rights reserved.</p>
 </footer>

@@ -17,7 +17,7 @@ async function fetchJson(url) {
     return data;
 }
 
-async function fetchPokemonList(offset = 0, limit = 20) {
+async function fetchPokemonList(offset = 0, limit = 10) {
     const list = await fetchJson(`${pokeApiUrl}?offset=${offset}&limit=${limit}`);
 
     const pokemonData = await Promise.all(
