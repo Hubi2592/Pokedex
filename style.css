@@ -39,9 +39,19 @@ header{
 
 }
 .pokemonCard:hover{
-    transform: translateY(-5px);
+    /* transform: translateY(-5px); */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    animation: shake 0.5s;
 }
+@keyframes shake {
+    0%   { transform: rotate(0deg); }
+    25%  { transform: rotate(-2deg); }
+    50%  { transform: rotate(2deg); }
+    75%  { transform: rotate(-2deg); }
+    100% { transform: rotate(0deg); }
+}
+
+
 .pokemonCard img{
     width: 200px;
     height: 200px;

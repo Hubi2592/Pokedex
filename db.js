@@ -1,5 +1,7 @@
 const pokedex = new Map();
 
+let currentPokemonId = null;
+
 function getPokemon(key) {
     return pokedex.get(key);
 }

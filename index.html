@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="overlay.css">
     <script src="./db.js"></script>
     <script src="./api.js"></script>
     <script src="./template.js"></script>
@@ -25,7 +26,15 @@
     <div class="pokemonContainer" id="pokemonContainer"></div>
 
     <button id="loadMoreBtn" onclick="loadNextPokemonBatch()">Load More</button>
+
+    <div id="overlayPokemonDetails"
+    class="overlayPokemonDetails hidden"
+    onkeydown="handleKeyDown(event)"
+    tabindex="-1"
+    onclick="clickOutside(event)"></div> 
+
 </section>
+
 <footer>
     <p>&copy; 2024 POKEDEX. All rights reserved.</p>
 </footer>
