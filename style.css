@@ -15,6 +15,53 @@ header{
     background-color: blue;
 }
 
+.loadingScreen {
+    margin: 24px auto;
+    padding: 16px 24px;
+    width: fit-content;
+    border-radius: 999px;
+    background: #222;
+    color: white;
+    font-weight: bold;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+}
+.loadingScreen img {
+    width: 24px;
+    height: 24px;
+    margin-left: 8px;
+    animation: spin 1s linear infinite;
+}
+
+.loadingScreen.hidden {
+    display: none;
+}
+.loadMoreBtn{
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: blue;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.loadMoreBtn:hover{
+    background-color: darkblue;
+}
+.loadMoreBtn:disabled{
+    background-color: gray;
+    cursor: not-allowed;
+}
+
+
+
 
 /* später in eigener css Datei übetragen Card Design */
 
@@ -39,9 +86,9 @@ header{
 
 }
 .pokemonCard:hover{
-    /* transform: translateY(-5px); */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     animation: shake 0.5s;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 @keyframes shake {
     0%   { transform: rotate(0deg); }

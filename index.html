@@ -23,9 +23,14 @@
 <section class="mainContent">
     <h1>POKEDEX</h1>
     <p>Welcome to the POKEDX!</p>
+    <div id="loadingScreen" class="loadingScreen hidden">
+    <div class="spinner"></div>
+    <img src="./assets/icons/pngaaa.com-5271546.png" alt="Pokeball Icon" class="pokeballIcon">
+    <p>Loading...</p>
+    </div>
     <div class="pokemonContainer" id="pokemonContainer"></div>
 
-    <button id="loadMoreBtn" onclick="loadNextPokemonBatch()">Load More</button>
+    <button id="loadMoreBtn" class="loadMoreBtn" onclick="loadNextPokemonBatch()">Load More</button>
 
     <div id="overlayPokemonDetails"
     class="overlayPokemonDetails hidden"

@@ -3,16 +3,24 @@ async function init() {
     console.log("Daten in script.js:", pokemonData);
 }
 
-async function renderPokemonList(offset = 0, limit = 20) {
+async function renderPokemonList(offset = 0, limit = 40) {
     const pokemonData = await fetchPokemonList(offset, limit);
     const container = document.getElementById("pokemonContainer");
 
    pokemonData.forEach(pokemon => { container.innerHTML += pokemonCardTemplate(pokemon)});
 }
 
-function loadNextPokemonBatch() {
+async function loadNextPokemonBatch() {
+    const loadingScreen = document.getElementById("loadingScreen");
+    const loadMoreBtn = document.getElementById("loadMoreBtn");
+
+    loadingScreen.classList.remove("hidden");
+    loadMoreBtn.disabled = true;
+
     const currentCount = document.querySelectorAll(".pokemonCard").length;
-    renderPokemonList(currentCount, 20);
+    await renderPokemonList(currentCount, 100);
+    loadingScreen.classList.add("hidden");
+    loadMoreBtn.disabled = false;
 }
 
 function getPokemonById(id) {
@@ -32,6 +40,7 @@ function getPokemonById(id) {
 
     overlay.innerHTML = overlayTemplate(pokemon);
     document.body.classList.add("noScroll");
+    showTab("about", id);
 
     overlay.classList.remove("hidden");
     overlay.focus();
@@ -71,6 +80,68 @@ function clickOutside(event) {
         closeOverlay();
     }
 }
+
+async function showTab(tabName, pokemonId) {
+    const pokemon = await fetchJson(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`);
+    const tabContent = document.getElementById("tabContent");
+
+    if (tabName === "about") {
+        tabContent.innerHTML = await aboutTemplate(pokemon);
+    }
+
+    if (tabName === "stats") {
+        tabContent.innerHTML = statsTemplate(pokemon);
+    }
+
+    if (tabName === "moves") {
+        tabContent.innerHTML = movesTemplate(pokemon);
+    }
+
+    if (tabName === "evolution") {
+        tabContent.innerHTML = `<p>Evolution wird später geladen...</p>`;
+    }
+
+    if (tabName === "evolution") {
+        tabContent.innerHTML = `<p>Evolution wird geladen...</p>`;
+        const species = await fetchJson(pokemon.species.url);
+        const evolutionChain = await fetchJson(species.evolution_chain.url);
+        const evolutionNames = getEvolutionNames(evolutionChain.chain);
+        const evolutionPokemon = await Promise.all(evolutionNames.map(name => fetchJson(`https://pokeapi.co/api/v2/pokemon/${name}`)));
+        tabContent.innerHTML = evolutionTemplate(evolutionPokemon);
+    }
+}
+
+function getGenderText(genderRate) {
+    if (genderRate === -1) {
+        return "Genderless";
+    }
+
+    const female = (genderRate / 8) * 100;
+    const male = 100 - female;
+
+    return `${male}% male / ${female}% female`;
+}
+
+function getEvolutionNames(chain) {
+    const evolutions = [];
+
+    evolutions.push(chain.species.name);
+
+    if (chain.evolves_to.length > 0) {
+        const secondEvolution = chain.evolves_to[0];
+        evolutions.push(secondEvolution.species.name);
+
+        if (secondEvolution.evolves_to.length > 0) {
+            const thirdEvolution = secondEvolution.evolves_to[0];
+            evolutions.push(thirdEvolution.species.name);
+        }
+    }
+
+    return evolutions;
+}
+
+
+
 
 renderPokemonList();
 
