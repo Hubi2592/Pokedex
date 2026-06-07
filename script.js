@@ -40,7 +40,7 @@ function getPokemonById(id) {
     }
 }
 
-// ------------------ Overlay Funktionen ------------------
+// ------------------ Overlay Functions ------------------
 
  async function openOverlay(id) {
     currentPokemonId = id;
@@ -104,10 +104,6 @@ async function showTab(tabName, pokemonId) {
 
     if (tabName === "moves") {
         tabContent.innerHTML = movesTemplate(pokemon);
-    }
-
-    if (tabName === "evolution") {
-        tabContent.innerHTML = `<p>Evolution wird später geladen...</p>`;
     }
 
     if (tabName === "evolution") {
