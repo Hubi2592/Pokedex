@@ -41,7 +41,7 @@ header{
 .loadingScreen.hidden {
     display: none;
 }
-.loadMoreBtn{
+.button {
     display: block;
     margin: 20px auto;
     padding: 10px 20px;

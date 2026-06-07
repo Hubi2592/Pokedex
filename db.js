@@ -2,6 +2,8 @@ const pokedex = new Map();
 
 let currentPokemonId = null;
 
+let allPokemonNameList = [];
+
 function getPokemon(key) {
     return pokedex.get(key);
 }
@@ -15,6 +17,7 @@ function addPokemon(key, value) {
 function hasPokemon(key) {
     return pokedex.has(key);
 }
+
 
 const typeColorsBackground = {
     grass: "#7AC74C",

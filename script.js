@@ -23,6 +23,15 @@ async function loadNextPokemonBatch() {
     loadMoreBtn.disabled = false;
 }
 
+async function backToStart() {
+    const container = document.getElementById("pokemonContainer");
+    document.getElementById("backToStartBtn").classList.add("hidden");
+    document.getElementById("loadMoreBtn").disabled = false;
+    document.getElementById("searchInput").value = "";
+    container.innerHTML = "";
+    await renderPokemonList(0, 40);
+}
+
 function getPokemonById(id) {
     for (const pokemon of pokedex.values()) {
         if (pokemon.id === id) {
@@ -140,9 +149,34 @@ function getEvolutionNames(chain) {
     return evolutions;
 }
 
+// ------------------- Filter Functions ------------------
 
+async function getAllPokemonNames() {
+    const names = await fetchJson("https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0");
+    allPokemonNameList = names.results;
+}
+
+ async function searchPokemonByName(){
+    const searchInput = document.getElementById("searchInput").value.toLowerCase();
+    const container = document.getElementById("pokemonContainer");
+    loadMoreBtn.disabled = true;
+    backToStartBtn.classList.remove("hidden");
+
+
+
+    if (searchInput.length < 3) {
+        container.innerHTML = "Need at least 3 characters to search.";
+        return;
+    }
+    const filteredPokemon = allPokemonNameList.filter(pokemon => pokemon.name.includes(searchInput));
+    const pokemonData = await Promise.all(filteredPokemon.map(pokemon => fetchJson(pokemon.url)));
+
+    container.innerHTML = "";
+    pokemonData.forEach(pokemon => { container.innerHTML += pokemonCardTemplate(pokemon)});
+}
 
 
 renderPokemonList();
+getAllPokemonNames();
 
 console.log(pokedex);
