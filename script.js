@@ -4,6 +4,7 @@ async function init() {
     renderPokemonList();
     getAllPokemonNames();
     console.log(pokedex);
+    isLoading = false;
 }
 
 async function renderPokemonList(offset = 0, limit = 40) {
@@ -13,6 +14,7 @@ async function renderPokemonList(offset = 0, limit = 40) {
 }
 
 async function loadNextPokemonBatch() {
+    isLoading = true;
     const loadingScreen = document.getElementById("loadingScreen");
     const loadMoreBtn = document.getElementById("loadMoreBtn");
 
@@ -23,6 +25,8 @@ async function loadNextPokemonBatch() {
     await renderPokemonList(currentCount, 100);
     loadingScreen.classList.add("hidden");
     loadMoreBtn.disabled = false;
+
+    isLoading = false;
 }
 
 async function backToStart() {
@@ -45,16 +49,16 @@ function getPokemonById(id) {
 // ------------------ Overlay Functions ------------------
 
  async function openOverlay(id) {
+    if (isLoading) return;
     currentPokemonId = id;
     const pokemon = await fetchJson(`https://pokeapi.co/api/v2/pokemon/${id}`);
     const overlay = document.getElementById("overlayPokemonDetails");
 
     overlay.innerHTML = overlayTemplate(pokemon);
     document.body.classList.add("noScroll");
-    showTab("about", id);
-
     overlay.classList.remove("hidden");
     overlay.focus();
+    await showTab("about", id, document.getElementById("aboutButton"));
 }
 
 function closeOverlay() {
@@ -92,13 +96,15 @@ function clickOutside(event) {
     }
 }
 
-async function showTab(tabName, pokemonId) {
+async function showTab(tabName, pokemonId, button) {
     const pokemon = await fetchJson(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`);
     const tabContent = document.getElementById("tabContent");
-    if (tabName === "about") {tabContent.innerHTML = await aboutTemplate(pokemon);}
-    if (tabName === "stats") {tabContent.innerHTML = statsTemplate(pokemon);}
-    if (tabName === "moves") {tabContent.innerHTML = await movesTemplate(pokemon);}
-    if (tabName === "evolution") {tabContent.innerHTML = await evolutionTemplate(pokemon);}
+    document.querySelectorAll(".overlayTab").forEach(btn => btn.classList.remove("activeTab"));
+    if (button) button.classList.add("activeTab");
+    if (tabName === "about") tabContent.innerHTML = await aboutTemplate(pokemon);
+    if (tabName === "stats") tabContent.innerHTML = statsTemplate(pokemon);
+    if (tabName === "moves") tabContent.innerHTML = await movesTemplate(pokemon);
+    if (tabName === "evolution") tabContent.innerHTML = await evolutionTemplate(pokemon);
 }
 
 function getGenderText(genderRate) {
