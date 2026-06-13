@@ -1,12 +1,14 @@
 async function init() {
     const pokemonData = await fetchPokemonList(0, 10);
     console.log("Daten in script.js:", pokemonData);
+    renderPokemonList();
+    getAllPokemonNames();
+    console.log(pokedex);
 }
 
 async function renderPokemonList(offset = 0, limit = 40) {
     const pokemonData = await fetchPokemonList(offset, limit);
     const container = document.getElementById("pokemonContainer");
-
    pokemonData.forEach(pokemon => { container.innerHTML += pokemonCardTemplate(pokemon)});
 }
 
@@ -93,27 +95,10 @@ function clickOutside(event) {
 async function showTab(tabName, pokemonId) {
     const pokemon = await fetchJson(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`);
     const tabContent = document.getElementById("tabContent");
-
-    if (tabName === "about") {
-        tabContent.innerHTML = await aboutTemplate(pokemon);
-    }
-
-    if (tabName === "stats") {
-        tabContent.innerHTML = statsTemplate(pokemon);
-    }
-
-    if (tabName === "moves") {
-        tabContent.innerHTML = movesTemplate(pokemon);
-    }
-
-    if (tabName === "evolution") {
-        tabContent.innerHTML = `<p>Evolution wird geladen...</p>`;
-        const species = await fetchJson(pokemon.species.url);
-        const evolutionChain = await fetchJson(species.evolution_chain.url);
-        const evolutionNames = getEvolutionNames(evolutionChain.chain);
-        const evolutionPokemon = await Promise.all(evolutionNames.map(name => fetchJson(`https://pokeapi.co/api/v2/pokemon/${name}`)));
-        tabContent.innerHTML = evolutionTemplate(evolutionPokemon);
-    }
+    if (tabName === "about") {tabContent.innerHTML = await aboutTemplate(pokemon);}
+    if (tabName === "stats") {tabContent.innerHTML = statsTemplate(pokemon);}
+    if (tabName === "moves") {tabContent.innerHTML = await movesTemplate(pokemon);}
+    if (tabName === "evolution") {tabContent.innerHTML = await evolutionTemplate(pokemon);}
 }
 
 function getGenderText(genderRate) {
@@ -129,9 +114,7 @@ function getGenderText(genderRate) {
 
 function getEvolutionNames(chain) {
     const evolutions = [];
-
     evolutions.push(chain.species.name);
-
     if (chain.evolves_to.length > 0) {
         const secondEvolution = chain.evolves_to[0];
         evolutions.push(secondEvolution.species.name);
@@ -141,7 +124,6 @@ function getEvolutionNames(chain) {
             evolutions.push(thirdEvolution.species.name);
         }
     }
-
     return evolutions;
 }
 
@@ -158,8 +140,6 @@ async function getAllPokemonNames() {
     loadMoreBtn.disabled = true;
     backToStartBtn.classList.remove("hidden");
 
-
-
     if (searchInput.length < 3) {
         container.innerHTML = "Need at least 3 characters to search.";
         return;
@@ -171,8 +151,17 @@ async function getAllPokemonNames() {
     pokemonData.forEach(pokemon => { container.innerHTML += pokemonCardTemplate(pokemon)});
 }
 
+// --------------------Base Stats Colors--------------------
 
-renderPokemonList();
-getAllPokemonNames();
+function getStatColor(statValue) {
+    if (statValue < 50) return "red";
+    if (statValue < 90) return "orange";
+    return "green";
+}
 
-console.log(pokedex);
+// ---------------------Move Name Formatting---------------------
+
+function formatMoveName(moveName) {
+    return moveName.split("-").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
+}
+

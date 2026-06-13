@@ -20,33 +20,23 @@ function overlayTemplate(pokemon) {
     return `
         <div class="overlayContent"
         style="background-color: ${typeColorsBackground[mainType]};">
-            <button id="closeOverlay" onclick="closeOverlay()">
-                ✕
-            </button>
-
-            <h2>${pokemon.name.toUpperCase()}</h2>
-
+            <button id="closeOverlay" onclick="closeOverlay()">✕</button>
+            <h2>${pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</h2>
             <img src="${pokemon.sprites.other["official-artwork"].front_default}" alt="${pokemon.name}">
-            <div class="pokemonTypes">
-                ${pokemon.types.map(type => `<span class="type ${type.type.name}" style="background-color: ${typeBadgeColors[type.type.name]};">
+            <div class="pokemonTypes">${pokemon.types.map(type => `<span class="type ${type.type.name}" style="background-color: ${typeBadgeColors[type.type.name]};">
                 ${type.type.name.charAt(0).toUpperCase() + type.type.name.slice(1)}</span>`).join('')}
             </div>
-
             <div class="overlayTabs">
-                 <button id="aboutButton" onclick="showTab('about', ${pokemon.id})">About</button>
+                <button id="aboutButton" onclick="showTab('about', ${pokemon.id})">About</button>
                 <button onclick="showTab('stats', ${pokemon.id})">Base Stats</button>
                 <button onclick="showTab('evolution', ${pokemon.id})">Evolution</button>
                 <button onclick="showTab('moves', ${pokemon.id})">Moves</button>
             </div>
             <div id="tabContent" class="pokemonInfo">
-               ${aboutTemplate(pokemon)}
+            ${aboutTemplate(pokemon)}
             </div>
-            <button id="previousPokemon" onclick="previousPokemon()">
-                 ←
-            </button>
-            <button id="nextPokemon" onclick="nextPokemon()">
-                →
-            </button>
+            <button id="previousPokemon" onclick="previousPokemon()">←</button>
+            <button id="nextPokemon" onclick="nextPokemon()">→</button>
         </div>
     `;
 }
@@ -69,35 +59,46 @@ async function aboutTemplate(pokemon) {
 
 function statsTemplate(pokemon) {
     return `
-        <div>
-            ${pokemon.stats.map(stat => `
-                <p>
-                    <b>${stat.stat.name}:</b> ${stat.base_stat}
-                </p>
+        <div class="statsContainer">${pokemon.stats.map(stat => `
+                <div class="statRow">
+                    <span class="statName">${stat.stat.name}</span>
+                    <span class="statValue">${stat.base_stat}</span>
+                    <div class="statBarBackground">
+                        <div class="statBar" style="width:${Math.min(stat.base_stat, 150) / 150 * 100}%;
+                        background-color: ${getStatColor(stat.base_stat)};"></div>
+                    </div>
+                </div>
             `).join("")}
         </div>
     `;
 }
 
-function movesTemplate(pokemon) {
+async function movesTemplate(pokemon) {
+    const moves = await Promise.all(pokemon.moves.slice(0, 30).map(move =>fetchJson(move.move.url)));
     return `
-        <div>
-            ${pokemon.moves.slice(0, 20).map(move => `
-                <span class="moveBadge">${move.move.name}</span>
+        <div class="movesContainer">
+            ${moves.map(move => `<span class="moveBadge"style="background-color: ${typeBadgeColors[move.type.name]};">
+            ${formatMoveName(move.name)}
+            </span>
             `).join("")}
         </div>
     `;
 }
 
-function evolutionTemplate(evolutionPokemon) {
+async function evolutionTemplate(pokemon) {
+    const species = await fetchJson(pokemon.species.url);
+    const evolutionChain = await fetchJson(species.evolution_chain.url);
+    const evolutionNames = getEvolutionNames(evolutionChain.chain);
+    const evolutionPokemon = await Promise.all(evolutionNames.map(name =>
+            fetchJson(`https://pokeapi.co/api/v2/pokemon/${name}`)));
     return `
         <div class="evolutionChain">
-            ${evolutionPokemon.map(pokemon => `
+            ${evolutionPokemon.map((pokemon, index) => `
                 <div class="evolutionCard">
-                    <img src="${pokemon.sprites.other["official-artwork"].front_default}"alt="${pokemon.name}">
-                    <p>${pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</p>
+                    <img src="${pokemon.sprites.other["official-artwork"].front_default}" alt="${pokemon.name}">
+                    <p> ${pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</p>
                 </div>
-                ${pokemon !== evolutionPokemon[evolutionPokemon.length - 1] ? `<span class="evolutionArrow">>>></span>` : ""}
+                ${index < evolutionPokemon.length - 1 ? `<div class="evolutionArrow">→</div>`: ""}
             `).join("")}
         </div>
     `;
