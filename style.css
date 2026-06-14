@@ -1,4 +1,10 @@
 /* -------------Fonts------------------ */
+@font-face {
+    font-family: "Pokemon";
+    src: url("./assets/fonts/Pokemon\ Solid.ttf");
+}
+
+
 h2{
     font-family: 'Arial', sans-serif;
     color: white;
@@ -12,7 +18,64 @@ header{
     justify-content: space-between;
     align-items: center;
     padding: 20px;
-    background-color: blue;
+    background-color: rgb(204,0,0);
+}
+.logo{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: rgba(255, 203, 5);
+    cursor: pointer;
+}
+.logo img{
+    height: 48px;
+    width: 48px;
+    margin-right: 16px;
+}
+.searchBar{
+    display: flex;
+    flex-direction: row;
+    
+}
+#searchInput{
+    border-radius: 8px;
+    width: 160px;
+    height: 32px;
+}
+.searchBtn{
+    background-color: rgba(255, 203, 5);
+    color: black;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-left: 8px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.title{
+    display: flex;
+    font-weight: bold;
+    font-size: 32px;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 0px;     
+    font-family: "Pokemon";
+    color: rgba(255, 203, 5);
+    letter-spacing: 8px;
+    text-shadow:
+        -2px -2px rgb(60, 90, 166),
+         2px -2px rgb(60, 90, 166),
+        -2px  2px rgb(60, 90, 166),
+         2px  2px rgb(60, 90, 166);
+}
+.title h1{
+    margin-bottom: 0px;
+}
+.title img{
+    height: 160px;
+    width: 160px;
 }
 
 .loadingScreen {
@@ -86,8 +149,8 @@ header{
 
 }
 .pokemonCard:hover{
-    animation: shake 0.5s;
     transform: scale(1.05);
+    animation: shake 0.5s;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 @keyframes shake {

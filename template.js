@@ -1,11 +1,11 @@
 function pokemonCardTemplate(pokemon) {
     const mainType = pokemon.types[0].type.name;
     return `
-        <div class="pokemonCard" 
+        <div data-id="card" class="pokemonCard" 
         onclick = "openOverlay(${pokemon.id})" 
         style="background-color: ${typeColorsBackground[mainType]};">
             <span class="pokemonId">#${pokemon.id}</span>
-            <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}">
+            <img data-id="card-image" src="${pokemon.sprites.front_default}" alt="${pokemon.name}">
             <h2>${pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</h2>
             <div class="pokemonTypes">
                 ${pokemon.types.map(type => `<span class="type ${type.type.name}" style="background-color: ${typeBadgeColors[type.type.name]};">
@@ -18,10 +18,10 @@ function pokemonCardTemplate(pokemon) {
 function overlayTemplate(pokemon) {
     const mainType = pokemon.types[0].type.name;
     return `
-        <div class="overlayContent" style="background-color: ${typeColorsBackground[mainType]};">
-            <button id="closeOverlay" onclick="closeOverlay()">&times;</button>
+        <div data-id="overlay-pokemon-name" class="overlayContent" style="background-color: ${typeColorsBackground[mainType]};">
+            <button data-id="close-dialog-button" id="closeOverlay" onclick="closeOverlay()">&times;</button>
             <h2>${pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</h2>
-            <img src="${pokemon.sprites.other["official-artwork"].front_default}" alt="${pokemon.name}">
+            <img data-id="dialog-image" src="${pokemon.sprites.other["official-artwork"].front_default}" alt="${pokemon.name}">
             <div class="pokemonTypes">${pokemon.types.map(type => `<span class="type ${type.type.name}" style="background-color: ${typeBadgeColors[type.type.name]};">
                 ${type.type.name.charAt(0).toUpperCase() + type.type.name.slice(1)}</span>`).join('')}
             </div>
@@ -35,8 +35,8 @@ function overlayTemplate(pokemon) {
                 ${aboutTemplate(pokemon)}
             </div>
             <div class="navigationButtons">
-                <button id="previousPokemon" onclick="previousPokemon()"><img class="arrowLeft" src="./assets/icons/right-arrow.png" alt="Previous"></button>
-                <button id="nextPokemon" onclick="nextPokemon()"><img class="arrowRight" src="./assets/icons/right-arrow.png" alt="Next"></button>
+                <button data-id="prev-button" id="previousPokemon" onclick="previousPokemon()"><img class="arrowLeft" src="./assets/icons/right-arrow.png" alt="Previous"></button>
+                <button data-id="next-button" id="nextPokemon" onclick="nextPokemon()"><img class="arrowRight" src="./assets/icons/right-arrow.png" alt="Next"></button>
             </div>
         </div>
     `;

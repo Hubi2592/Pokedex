@@ -17,15 +17,12 @@ async function loadNextPokemonBatch() {
     isLoading = true;
     const loadingScreen = document.getElementById("loadingScreen");
     const loadMoreBtn = document.getElementById("loadMoreBtn");
-
     loadingScreen.classList.remove("hidden");
     loadMoreBtn.disabled = true;
-
     const currentCount = document.querySelectorAll(".pokemonCard").length;
     await renderPokemonList(currentCount, 100);
     loadingScreen.classList.add("hidden");
     loadMoreBtn.disabled = false;
-
     isLoading = false;
 }
 
@@ -53,7 +50,6 @@ function getPokemonById(id) {
     currentPokemonId = id;
     const pokemon = await fetchJson(`https://pokeapi.co/api/v2/pokemon/${id}`);
     const overlay = document.getElementById("overlayPokemonDetails");
-
     overlay.innerHTML = overlayTemplate(pokemon);
     document.body.classList.add("noScroll");
     overlay.classList.remove("hidden");
@@ -111,10 +107,8 @@ function getGenderText(genderRate) {
     if (genderRate === -1) {
         return "Genderless";
     }
-
     const female = (genderRate / 8) * 100;
     const male = 100 - female;
-
     return `${male}% male / ${female}% female`;
 }
 
@@ -145,14 +139,12 @@ async function getAllPokemonNames() {
     const container = document.getElementById("pokemonContainer");
     loadMoreBtn.disabled = true;
     backToStartBtn.classList.remove("hidden");
-
     if (searchInput.length < 3) {
         container.innerHTML = "Need at least 3 characters to search.";
         return;
     }
     const filteredPokemon = allPokemonNameList.filter(pokemon => pokemon.name.includes(searchInput));
     const pokemonData = await Promise.all(filteredPokemon.map(pokemon => fetchJson(pokemon.url)));
-
     container.innerHTML = "";
     pokemonData.forEach(pokemon => { container.innerHTML += pokemonCardTemplate(pokemon)});
 }
