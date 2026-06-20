@@ -39,7 +39,7 @@
     flex-direction: column;
     justify-content: center;
     gap: 16px;
-    height: 240px;
+    height: 280px;
 
 }
 
@@ -51,7 +51,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    font-size: 14px;
+    font-size: 16px;
     text-align: left;
     margin-left: 24px;
     margin-top: 16px;
@@ -101,7 +101,7 @@
 }
 .evolutionCard p {
     margin-top: 4px;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 /* -------Base Stats Styles------- */
@@ -155,7 +155,7 @@
 .moveBadge {
     padding: 5px 10px;
     border-radius: 12px;
-    font-size: 12px;
+    font-size: 16px;
     color: white;
     background-color: #007bff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -235,4 +235,60 @@
 
 .arrowLeft {
     transform: scaleX(-1);
+}
+
+.genderIcon img{
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+}
+
+
+@media(max-width:530px){
+    .overlayTabs{
+        gap:0px;
+    }
+    .overlayTabs button{
+        padding: 10px;
+        font-size: 16px;
+    }
+    .movesContainer {
+    height: 350px;
+    overflow-y: auto;
+    }
+}
+
+@media(max-width:460px){
+
+    .evolutionCard img{
+        width: 75px;
+    }
+    .aboutContainer{
+        margin-left: 16px;
+    }
+    .aboutRow{
+        grid-template-columns: 90px 1fr;
+    }
+}
+
+@media(max-width:380px){
+    .overlayTabs{
+        gap:0px;
+    }
+    .overlayTabs button{
+        padding: 5px;
+        font-size: 14px;
+    }
+
+    .statsContainer{
+        margin-left: 8px;
+        text-align: left;
+        font-size: 16px;
+    }
+    .statRow{
+        gap: 5px;
+    }
+    .aboutRow{
+        grid-template-columns: 85px 1fr;
+    }
 }

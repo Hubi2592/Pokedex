@@ -12,6 +12,11 @@ h2{
     margin: 0;
 }
 
+main{
+    margin: 0;
+    min-height: 100vh;
+}
+
 
 header{
     display: flex;
@@ -20,6 +25,12 @@ header{
     padding: 20px;
     background-color: rgb(204,0,0);
 }
+.contentWrapper{
+    max-width: 1920px;
+    margin: 0 auto;
+}
+
+
 .logo{
     display: flex;
     flex-direction: row;
@@ -93,12 +104,23 @@ header{
     z-index: 9999;
     display: flex;
     align-items: center;
+    flex-direction: row;
 }
-.loadingScreen img {
-    width: 24px;
-    height: 24px;
+.spinner img {
+    width: 64px;
+    height: 64px;
     margin-left: 8px;
+    margin-right: 16px;
     animation: spin 1s linear infinite;
+}
+
+@keyframes spin{
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
 }
 
 .loadingScreen.hidden {
@@ -186,8 +208,108 @@ header{
 .type{
     padding: 5px 10px;
     border-radius: 12px;
-    font-size: 12px;
+    font-size: 16px;
     color: white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     font-weight: bold;
+}
+
+/* -------------------Search Styles------------------------- */
+
+.noResults{
+    font-size: 48px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.noResults img{
+    height: 120px;
+    width:  120px;
+    transform: translateY(-40px);
+}
+
+@media(max-width:1080px){
+
+    .title{
+        font-size: 24px;
+    }
+    
+}
+
+@media(max-width:870px){
+
+    .title{
+        font-size: 16px;
+        letter-spacing: 6px;
+    }
+
+    .title img{
+        height: 80px;
+        width: 80px;
+    }
+    .noResults{
+        font-size: 24px;
+    }
+    .noResults img{
+        width: 90px;
+        height: 90px;
+        transform: translateY(-30px);
+    }
+    
+}
+@media(max-width:635px){
+
+    .title{
+        font-size: 10px;
+        letter-spacing: 4px;
+    }
+    header{
+     justify-content: center;
+     align-items: center;
+    }
+    .searchBar {
+        position: fixed;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        background-color: rgb(204, 0, 0);;
+        padding: 8px;
+        z-index: 9999;
+        transform: none;
+        border-radius: 8px;
+
+        display: flex;
+    }
+
+    #searchInput {
+        flex: 1;
+    }
+
+     .noResults{
+        font-size: 20px;
+        flex-direction: column-reverse;
+    }
+    .noResults img{
+        width: 90px;
+        height: 90px;
+        transform: translateY(-30px);
+        margin-top: 24px;
+    }
+    .noResults p{
+        margin-top: 0px;
+    }
+
+
+}
+@media(max-width:470px){
+
+    .title{
+        font-size: 7px;
+    }
+    .noResults{
+        font-size: 16px;
+        text-align: center;
+    }
 }

@@ -1,3 +1,5 @@
+// -----------------Loading Functions------------------------
+
 async function init() {
     const pokemonData = await fetchPokemonList(0, 10);
     console.log("Daten in script.js:", pokemonData);
@@ -109,7 +111,15 @@ function getGenderText(genderRate) {
     }
     const female = (genderRate / 8) * 100;
     const male = 100 - female;
-    return `${male}% male / ${female}% female`;
+     return `
+        <span class="genderIcon">
+        <img src="./assets/icons/male.png">${male}%
+    </span>
+    /
+    <span class="genderIcon">
+        <img src="./assets/icons/female.png">${female}%
+    </span>
+    `;
 }
 
 function getEvolutionNames(chain) {
@@ -127,7 +137,7 @@ function getEvolutionNames(chain) {
     return evolutions;
 }
 
-// ------------------- Filter Functions ------------------
+// ------------------- Search Functions ------------------
 
 async function getAllPokemonNames() {
     const names = await fetchJson("https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0");
@@ -140,10 +150,12 @@ async function getAllPokemonNames() {
     loadMoreBtn.disabled = true;
     backToStartBtn.classList.remove("hidden");
     if (searchInput.length < 3) {
-        container.innerHTML = "Need at least 3 characters to search.";
-        return;
+        container.innerHTML = minCharactersTemplate();return;  
     }
     const filteredPokemon = allPokemonNameList.filter(pokemon => pokemon.name.includes(searchInput));
+    if (filteredPokemon.length === 0){
+        container.innerHTML = noResultsTemplate(searchInput);return;
+    }
     const pokemonData = await Promise.all(filteredPokemon.map(pokemon => fetchJson(pokemon.url)));
     container.innerHTML = "";
     pokemonData.forEach(pokemon => { container.innerHTML += pokemonCardTemplate(pokemon)});

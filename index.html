@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="./assets/pokeCenter.png">
+    <link rel="icon" type="image/x-icon" href="./assets/images/pokeCenter.png">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="overlay.css">
     <script src="./db.js"></script>
@@ -23,17 +23,17 @@
         <button data-id="search-button" id="searchBtn" class="searchBtn" onclick="searchPokemonByName()">Search</button>
     </div>
 </header>
-<main data-id ="content">
+<main data-id ="content" class="contentWrapper">
     <section class="mainContent">
         <div class="title">
             <h1>WELCOME TO THE POKEDEX</h1>
-            <img src="./assets/pokeCenter.png" alt="Pokecenter Icon" class="pokeCenterImage">
+            <img src="./assets/images/pokeCenter.png" alt="Pokecenter Icon" class="pokeCenterImage">
         </div>
         <div id="loadingScreen" class="loadingScreen hidden">
             <div class="spinner">
                 <img src="./assets/icons/pngaaa.com-5271546.png" alt="Pokeball Icon" class="pokeballIcon">
+            </div>    
                 <p>Loading...</p>
-            </div>
         </div>
         <div class="pokemonContainer" id="pokemonContainer"></div>
         <button data-id="load-more-button" id="loadMoreBtn" class="loadMoreBtn button" onclick="loadNextPokemonBatch()">Load More</button>

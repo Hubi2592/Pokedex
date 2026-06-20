@@ -104,3 +104,21 @@ async function evolutionTemplate(pokemon) {
         </div>
     `;
 }
+
+function noResultsTemplate(searchInput){
+    return`
+    <div data-id="not-found" class="noResults">
+    <p> Sorry We couldn't find anything matching "${searchInput}".</p>
+     <img src ="./assets/images/searchPikachu.png">
+    </div>
+    `;
+}
+
+function minCharactersTemplate() {
+    return `
+        <div class="noResults">
+            Need at least 3 characters to search.
+        </div>
+    `;
+}
+
