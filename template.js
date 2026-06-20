@@ -117,7 +117,7 @@ function noResultsTemplate(searchInput){
 function minCharactersTemplate() {
     return `
         <div class="noResults">
-            Need at least 3 characters to search.
+           <p> Need at least 3 characters to search.</p>
         </div>
     `;
 }

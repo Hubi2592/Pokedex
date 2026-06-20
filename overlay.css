@@ -24,9 +24,11 @@
     text-align: center;
     position: relative;
 }
+
 .overlayContent h2 {
     margin-top: 16px;
 }
+
 .overlayContent IMG {
     width: 200px;
     height: 200px;
@@ -56,26 +58,32 @@
     margin-left: 24px;
     margin-top: 16px;
 }
+
 .aboutContainer h3 {
     margin-top: 16px;
     margin-bottom: 8px;
     font-size: 18px;
 }
+
 .aboutLabel {
     margin-right: 8px;
     color: #969090;
 }
+
 .aboutValue {
     font-weight: bold;
     color: #333;
 }
+
 .aboutRow {
     display: grid;
     grid-template-columns: 120px 1fr;
 }
+
 .aboutContainer span {
      margin: 4px 0;
 }
+
 .aboutContainer b {
     
     font-weight: bold;
@@ -91,14 +99,17 @@
     justify-content: center;
     gap: 8px;
 }
+
 .evolutionCard {
    text-align: center;
 }
+
 .evolutionCard img {
     width: 100px;
     height: 100px;
     object-fit: contain;
 }
+
 .evolutionCard p {
     margin-top: 4px;
     font-size: 16px;
@@ -152,6 +163,7 @@
     margin-top: 10px;
     padding: 5px;
 }
+
 .moveBadge {
     padding: 5px 10px;
     border-radius: 12px;
@@ -186,6 +198,7 @@
     margin-top: 16px;
     background: #f0f0f0;
 }
+
 .overlayTabs button {
     background: transparent;
     border: none;
@@ -196,9 +209,11 @@
     color: #333;
     transition: all 0.2s ease;
 }
+
 .overlayTabs button:hover {
     color: #007bff;
 }
+
 .overlayTabs button.activeTab {
     color: #007bff;
     border-bottom: 2px solid #007bff;
@@ -224,7 +239,6 @@
     justify-content: center;
 }
 
-
 #previousPokemon img,
 #nextPokemon img {
     width: 28px;
@@ -248,10 +262,12 @@
     .overlayTabs{
         gap:0px;
     }
+
     .overlayTabs button{
         padding: 10px;
         font-size: 16px;
     }
+
     .movesContainer {
     height: 350px;
     overflow-y: auto;
@@ -263,9 +279,11 @@
     .evolutionCard img{
         width: 75px;
     }
+
     .aboutContainer{
         margin-left: 16px;
     }
+
     .aboutRow{
         grid-template-columns: 90px 1fr;
     }
@@ -275,6 +293,7 @@
     .overlayTabs{
         gap:0px;
     }
+
     .overlayTabs button{
         padding: 5px;
         font-size: 14px;
@@ -285,9 +304,11 @@
         text-align: left;
         font-size: 16px;
     }
+
     .statRow{
         gap: 5px;
     }
+    
     .aboutRow{
         grid-template-columns: 85px 1fr;
     }
