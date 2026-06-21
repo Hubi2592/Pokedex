@@ -18,7 +18,6 @@ function hasPokemon(key) {
     return pokedex.has(key);
 }
 
-
 const typeColorsBackground = {
     grass: "#7AC74C",
     fire: "#EE8130",

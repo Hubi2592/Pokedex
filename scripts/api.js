@@ -13,7 +13,6 @@ async function fetchJson(url) {
 
     const data = await response.json();
     addPokemon(url, data);
-
     return data;
 }
 

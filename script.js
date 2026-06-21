@@ -1,5 +1,4 @@
 // -----------------Loading Functions------------------------
-
 async function init() {
     const pokemonData = await fetchPokemonList(0, 10);
     console.log("Daten in script.js:", pokemonData);
@@ -46,7 +45,6 @@ function getPokemonById(id) {
 }
 
 // ------------------ Overlay Functions ------------------
-
  async function openOverlay(id) {
     if (isLoading) return;
     currentPokemonId = id;
@@ -64,18 +62,23 @@ function closeOverlay() {
     document.body.classList.remove("noScroll");
 }
 
+function getLoadedPokemonIds() {
+    return [...document.querySelectorAll(".pokemonCard")]
+        .map(card => Number(card.dataset.pokemonId));
+}
+
 async function previousPokemon() {
-    if (currentPokemonId <= 1){
-        return;
-    }
-    currentPokemonId--;
-    await openOverlay(currentPokemonId);
-    
+    const ids = getLoadedPokemonIds();
+    const index = ids.indexOf(currentPokemonId);
+    const previousIndex = index > 0 ? index - 1: ids.length - 1;
+    await openOverlay(ids[previousIndex]);
 }
 
 async function nextPokemon() {
-    currentPokemonId++;
-    await openOverlay(currentPokemonId);
+    const ids = getLoadedPokemonIds();
+    const index = ids.indexOf(currentPokemonId);
+    const nextIndex = index < ids.length - 1 ? index + 1: 0;
+    await openOverlay(ids[nextIndex]);
 }
 
 function handleKeyDown(event) {
@@ -105,21 +108,14 @@ async function showTab(tabName, pokemonId, button) {
     if (tabName === "evolution") tabContent.innerHTML = await evolutionTemplate(pokemon);
 }
 
-function getGenderText(genderRate) {
+function getGenderData(genderRate) {
     if (genderRate === -1) {
-        return "Genderless";
+        return null;
     }
-    const female = (genderRate / 8) * 100;
-    const male = 100 - female;
-     return `
-        <span class="genderIcon">
-        <img src="./assets/icons/male.png">${male}%
-    </span>
-    /
-    <span class="genderIcon">
-        <img src="./assets/icons/female.png">${female}%
-    </span>
-    `;
+    return {
+        male: 100 - (genderRate / 8) * 100,
+        female: (genderRate / 8) * 100
+    };
 }
 
 function getEvolutionNames(chain) {
@@ -138,7 +134,6 @@ function getEvolutionNames(chain) {
 }
 
 // ------------------- Search Functions ------------------
-
 async function getAllPokemonNames() {
     const names = await fetchJson("https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0");
     allPokemonNameList = names.results;
@@ -162,7 +157,6 @@ async function getAllPokemonNames() {
 }
 
 // --------------------Base Stats Colors--------------------
-
 function getStatColor(statValue) {
     if (statValue < 50) return "red";
     if (statValue < 90) return "orange";
@@ -170,7 +164,6 @@ function getStatColor(statValue) {
 }
 
 // ---------------------Move Name Formatting---------------------
-
 function formatMoveName(moveName) {
     return moveName.split("-").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
 }

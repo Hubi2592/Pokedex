@@ -5,23 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="./assets/images/pokeCenter.png">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="overlay.css">
-    <link rel="stylesheet" href="card.css">
-    <script src="./db.js"></script>
-    <script src="./api.js"></script>
-    <script src="./template.js"></script>
+    <link rel="stylesheet" href="./style/card.css">
+    <link rel="stylesheet" href="./style/overlay.css">
+    <script src="./scripts/db.js"></script>
+    <script src="./scripts/api.js"></script>
+    <script src="./scripts/template.js"></script>
     <script src="./script.js"></script>
      <title>POKEDEX</title>
 </head>
 <body onload="init()">
 <header>
-    <div class="logo"onclick="backToStart()">
-        <img src="./assets/icons/pngaaa.com-5271546.png" alt="Header Icon" class="headerIcon">
-        <h1>POKEDEX</h1>
-    </div>
-    <div class="searchBar" data-id="search-input">
-        <input id="searchInput" type="text" placeholder="Search for Pokémon..." onkeydown="if(event.key === 'Enter') searchPokemonByName()">
-        <button data-id="search-button" id="searchBtn" class="searchBtn" onclick="searchPokemonByName()">Search</button>
+    <div  class=" headerContent contentWrapper">
+        <div class="logo"onclick="backToStart()">
+            <img src="./assets/icons/pngaaa.com-5271546.png" alt="Header Icon" class="headerIcon">
+            <h1>POKEDEX</h1>
+        </div>
+            <div class="searchBar" data-id="search-input">
+            <input id="searchInput" type="text" placeholder="Search for Pokémon..." aria-label="Search Pokémon by name" onkeydown="if(event.key === 'Enter') searchPokemonByName()">
+            <button data-id="search-button" id="searchBtn" class="searchBtn" aria-label="Start Search Button" onclick="searchPokemonByName()">Search</button>
+        </div>
     </div>
 </header>
 <main data-id ="content" class="contentWrapper">
@@ -36,8 +38,8 @@
             </div>    
                 <p>Loading...</p>
         </div>
-        <div class="pokemonContainer" id="pokemonContainer"></div>
-        <button data-id="load-more-button" id="loadMoreBtn" class="loadMoreBtn button" onclick="loadNextPokemonBatch()">Load More</button>
+        <ol id="pokemonContainer" class="pokemonContainer"></ol>
+        <button data-id="load-more-button" id="loadMoreBtn" class="loadMoreBtn button" aria-label="Load more Pokémon" onclick="loadNextPokemonBatch()">Load More</button>
         <button id="backToStartBtn" class="backToStartBtn button hidden" onclick="backToStart()">Back to Start</button>
     </section>
 

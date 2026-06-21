@@ -1,5 +1,3 @@
-
-
 .overlayPokemonDetails {
     position: fixed;
     inset: 0;
@@ -42,7 +40,6 @@
     justify-content: center;
     gap: 16px;
     height: 280px;
-
 }
 
 .noScroll {
@@ -116,7 +113,6 @@
 }
 
 /* -------Base Stats Styles------- */
-
 .statsContainer {
     width: 100%;
     display: flex;
@@ -154,7 +150,6 @@
 }
 
 /* ---------------------Moves Styles-------------------- */
-
 .movesContainer {
     display: flex;
     flex-wrap: wrap;
@@ -257,7 +252,6 @@
     margin-right: 4px;
 }
 
-
 @media(max-width:530px){
     .overlayTabs{
         gap:0px;
@@ -290,6 +284,21 @@
 }
 
 @media(max-width:380px){
+
+    .aboutContainer h3{
+        margin-top: 5px;
+        font-size: 16px;
+        margin-bottom: 5px;
+    }
+
+    .navigationButtons{
+        padding: 5px;
+    }
+
+    .evolutionCard img{
+        width: 65px;
+    }
+
     .overlayTabs{
         gap:0px;
     }
@@ -303,6 +312,9 @@
         margin-left: 8px;
         text-align: left;
         font-size: 16px;
+    }
+    .pokemonInfo{
+        height: 240px;
     }
 
     .statRow{

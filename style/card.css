@@ -1,28 +1,33 @@
 .pokemonContainer{
+    list-style: none;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
-    padding: 20px;
+    padding: 0px;
+    margin: 0px;
     align-items: center;
-
 }
 
 .pokemonCard{
-    width: 200px;
+    width: 250px;
     border: 1px solid #ccc;
     border-radius: 20px;
     padding: 16px;
     text-align: center;
     cursor: pointer;
     transition: all 0.2s ease;
-
+     border: none;
+    background: none;
+    font: inherit;
 }
+
 .pokemonCard:hover{
     transform: scale(1.05);
     animation: shake 0.5s;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+
 @keyframes shake {
     0%   { transform: rotate(0deg); }
     25%  { transform: rotate(-2deg); }
@@ -31,13 +36,13 @@
     100% { transform: rotate(0deg); }
 }
 
-
 .pokemonCard img{
     width: 200px;
     height: 200px;
     object-fit: contain;
     margin-bottom: 10px;
 }
+
 .pokemonId{
     font-size: 16px;
     margin-bottom: 8px;
@@ -51,8 +56,8 @@
     gap: 10px;
     margin-top: 10px;
     padding: 5px;
-    
 }
+
 .type{
     padding: 5px 10px;
     border-radius: 12px;
